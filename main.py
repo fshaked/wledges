@@ -192,7 +192,7 @@ class MainApp(Gtk.Application):
     def __init__(self) -> None:
         assert ARGS
         super().__init__(
-            application_id="my.pyedges",
+            application_id="com.wledges",
             # Allow multiple instances.
             flags=Gio.ApplicationFlags.NON_UNIQUE)
 
