@@ -1,0 +1,44 @@
+@define-color glow #6090ff;
+
+window {
+  /* if set to 0 the window won't receive events */
+  opacity: 0.001;
+  transition: opacity 1s;
+}
+
+window.hover {
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+window#top {
+  background: radial-gradient(ellipse 50% at top, @glow, alpha(@glow, 0));
+}
+
+window#bottom {
+  background: radial-gradient(ellipse 50% at bottom, @glow, alpha(@glow, 0));
+}
+
+window#left {
+  background: radial-gradient(ellipse 50% at left, @glow, alpha(@glow, 0));
+}
+
+window#right {
+  background: radial-gradient(ellipse 50% at right, @glow, alpha(@glow, 0));
+}
+
+window#top-left {
+  background: radial-gradient(farthest-side at top left, @glow, alpha(@glow, 0));
+}
+
+window#top-right {
+  background: radial-gradient(farthest-side at top right, @glow, alpha(@glow, 0));
+}
+
+window#bottom-left {
+  background: radial-gradient(farthest-side at bottom left, @glow, alpha(@glow, 0));
+}
+
+window#bottom-right {
+  background: radial-gradient(farthest-side at bottom right, @glow, alpha(@glow, 0));
+}
