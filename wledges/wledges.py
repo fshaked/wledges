@@ -4,6 +4,7 @@ import argparse
 from ctypes import CDLL
 import functools
 import logging
+import os
 import typing as t
 
 # https://pycairo.readthedocs.io/en/latest/reference/index.html
@@ -26,6 +27,8 @@ from gi.repository import GLib
 from gi.repository import Gtk
 # https://github.com/wmww/gtk4-layer-shell
 from gi.repository import Gtk4LayerShell
+
+from .version import __version__
 # pylint: enable=wrong-import-position
 # yapf: enable
 
@@ -266,28 +269,35 @@ def main() -> None:
     """Entry point."""
     logging.basicConfig(level=logging.WARN)
 
+    prog, _ = os.path.splitext(os.path.basename(__file__))
+
     parser: argparse.ArgumentParser = argparse.ArgumentParser(
-        description=__doc__)
+        prog=prog, description=__doc__)
     # yapf: disable
     parser.add_argument("output", default="",
-                        metavar="OUTPUT", help="set the output")
+                        metavar="OUTPUT", help="Set the output.")
     parser.add_argument("-c", "--css", default=None,
-                        metavar="FILE", help="set the css file")
-    parser.add_argument("-v", "--verbosity", action="count", default=0,
-                        help="increase output verbosity")
-    parser.add_argument("-V", "--version", action="version", version="%(prog)s 0.0")
-    parser.add_argument("-t", "--timeout", default=750,
-                        metavar="MSEC", help="(default 750) trigger timeout"
-                        " event after MSEC milliseconds.")
+                        metavar="FILE", help="Set a style sheet.")
     parser.add_argument("-r", "--repeat", default=750,
                         metavar="MSEC", help="(default 750) re-trigger a"
                         " timeout event after MSEC milliseconds.")
-    for edge in EDGES:
-        parser.add_argument(f"--{edge}", metavar="WxH",
-                            action="append", dest="edges",
-                            type=functools.partial(lambda edge, x: (edge, Dimensions(x)), edge),
-                            help=f"set the {edge} edge")
+    parser.add_argument("-t", "--timeout", default=750,
+                        metavar="MSEC", help="(default 750) trigger timeout"
+                        " event after MSEC milliseconds.")
+    parser.add_argument("-V", "--version", action="version",
+                        version=f"%(prog)s {__version__}")
+    parser.add_argument("-v", "--verbosity", action="count", default=0,
+                        help="Increase output verbosity.")
     # yapf: enable
+
+    for edge in EDGES:
+        parser.add_argument(f"--{edge}",
+                            metavar="WxH",
+                            action="append",
+                            dest="edges",
+                            type=functools.partial(
+                                lambda edge, x: (edge, Dimensions(x)), edge),
+                            help=f"Set the {edge} edge.")
 
     global ARGS  # pylint: disable=global-statement
     ARGS = parser.parse_args()
@@ -306,7 +316,3 @@ def main() -> None:
     app: MainApp = MainApp()
     app.connect("activate", app.on_activate)
     app.run(None)
-
-
-if __name__ == "__main__":
-    main()

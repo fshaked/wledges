@@ -1,3 +1,59 @@
+[project]
+name = "wledges"
+description = "Active edges for wayland."
+dynamic = ["version"]
+# pycairo requires Python 3.9+
+requires-python = ">= 3.9"
+dependencies = [
+  "pycairo>=1.27.0",
+  "PyGObject>=3.50.0",
+]
+authors = [
+  {name = "Shaked Flur"},
+]
+maintainers = [
+  {name = "Shaked Flur"},
+]
+readme = "README.md"
+# License is declared in the classifiers below
+# license = {file = "LICENSE"}
+keywords = ["edges", "wayland", "sway", "layer-shell", "wlr", "wlroots"]
+classifiers = [
+  # See full list https://pypi.org/classifiers/
+
+  #   3 - Alpha
+  #   4 - Beta
+  #   5 - Production/Stable
+  "Development Status :: 4 - Beta",
+
+  "Intended Audience :: End Users/Desktop",
+  "Intended Audience :: System Administrators",
+  "Topic :: Desktop Environment",
+  "Topic :: Utilities",
+
+  "License :: OSI Approved :: MIT License",
+
+  "Programming Language :: Python :: 3",
+]
+
+[project.urls]
+# See https://packaging.python.org/en/latest/specifications/well-known-project-urls/#well-known-labels
+Homepage = "https://github.com/fshaked/wledges"
+Documentation = "https://github.com/fshaked/wledges"
+Repository = "https://github.com/fshaked/wledges.git"
+Issues = "https://github.com/fshaked/wledges/issues"
+Changelog = "https://github.com/fshaked/wledges/CHANGELOG.md"
+
+[build-system]
+requires = ["setuptools >= 75.6.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+version = {attr = "wledges.version.__version__"}
+
+[project.scripts]
+wledges = "wledges.wledges:main"
+
 [tool.pylint.basic]
 # Regular expression which should only match function or class names that do not
 # require a docstring.
